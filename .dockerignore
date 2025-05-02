@@ -1,0 +1,21 @@
+# Global ignores (applies to all builds)
+.git/
+.gitignore
+.dockerignore
+*.md
+*.log
+.env
+.env.*
+docker-compose*.yml
+Dockerfile*
+LICENSE
+.vscode/
+.idea/
+__pycache__/
+node_modules/
+dist/
+build/
+*.tmp
+*.bak
+*.swp
+*.DS_Store

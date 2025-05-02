@@ -1,0 +1,12 @@
+# Keep the root .dockerignore entries
+!public/
+!src/
+!package*.json
+!vite.config.js
+
+# Additional frontend-specific ignores
+*.local
+.sass-cache/
+.cache/
+.temp/
+coverage/

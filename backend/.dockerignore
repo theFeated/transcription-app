@@ -1,0 +1,10 @@
+# Keep the root .dockerignore entries
+!app/
+!requirements.txt
+!main.py
+
+# Additional backend-specific ignores
+*.egg-info/
+*.sqlite3
+migrations/
+tests/
