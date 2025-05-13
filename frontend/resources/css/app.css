@@ -48,11 +48,6 @@
     padding: 0 1px;
 }
 
-.active-word {
-    background-color: #ffecb3;
-    font-weight: 500;
-}
-
 .engine-badge {
     font-size: 0.7rem;
     padding: 2px 5px;
@@ -72,53 +67,222 @@
 }
 
 .word {
-    display: inline;
-    padding: 0 0.15em;
-    word-spacing: normal;
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 4px;
+    padding: 0 0.2em;
+}
+
+.word.active-word {
+    background-color: #ffff4b;
+    color: #000;
+    border-radius: 4px;
 }
 
 .word:hover {
-    background-color: #e9ecef;
+    background-color: #fff;
+    color: #000;
     cursor: pointer;
 }
 
+
 body.dark-mode {
-    background-color: #121212 !important;
-    color: #e0e0e0 !important;
+    background-color: #181a1b !important;
+    color: #d4d4d4 !important;
 }
 
 body.dark-mode .card,
 body.dark-mode .card-header,
 body.dark-mode .form-control,
-body.dark-mode .btn,
-body.dark-mode .badge {
-    background-color: #1e1e1e !important;
-    color: #f1f1f1 !important;
-    border-color: #444 !important;
+body.dark-mode .badge:not(.bg-success):not(.bg-danger):not(.bg-warning):not(.bg-primary):not(.bg-secondary) {
+    background-color: #242526 !important;
+    color: #eaeaea !important;
 }
 
 body.dark-mode .bg-primary {
-    background-color: #333 !important;
+    background-color: #3b5998 !important;
 }
 
 body.dark-mode .btn-outline-light {
-    border-color: #ccc !important;
-    color: #ccc !important;
+    border-color: #aaa !important;
+    color: #ddd !important;
 }
 
 .dark-mode .dropzone {
-    background-color: #333 !important;
+    background-color: #2c2c2e !important;
     border-color: #444 !important;
 }
 
 body.dark-mode .dark-mode-text {
-    color: #e0e0e0 !important;
+    color: #d8d8d8 !important;
 }
 
 body.dark-mode .dark-mode-text button {
-    color: #ccc;
+    color: #c4c4c4;
 }
 
 body.dark-mode .dark-mode-text .btn-link {
-    color: #ddd !important;
+    color: #ccc !important;
+}
+
+/* SweetAlert2 - Softer Dark Theme */
+body.dark-mode .swal2-popup {
+    background-color: #232526 !important;
+    color: #e2e2e2 !important;
+}
+
+body.dark-mode .swal2-title {
+    color: #f0f0f0;
+}
+
+body.dark-mode .swal2-content {
+    color: #cfcfcf;
+}
+
+body.dark-mode .swal2-confirm,
+body.dark-mode .swal2-cancel {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+.btn-outline-primary.active {
+    border-color: #0d6efd !important;
+    background-color: #0d6efd !important;
+    color: #fff !important;
+}
+
+/* General Dark Mode Styles */
+body.dark-mode .btn-outline-primary {
+    border-color: #3a3b3c !important;
+    color: #d1d1d1 !important;
+}
+
+body.dark-mode .btn-outline-primary.active {
+    background-color: #3b5998 !important; 
+    border-color: #3b5998 !important;
+    color: #fff !important;
+}
+
+/* Dark Mode Styling for Selected Status Buttons */
+body.dark-mode .selected-status-dark-mode {
+    background-color: #4a90e2 !important;
+    border-color: #4a90e2 !important;
+    color: #fff !important;
+}
+
+/* Default Button Styling for Light Mode */
+body:not(.dark-mode) .btn-outline-primary {
+    border-color: #007bff !important;
+    color: #007bff !important;
+}
+
+/* Active Button in Light Mode */
+body:not(.dark-mode) .btn-outline-primary.active {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color: #fff !important;
+}
+
+/* Hover/Focus States for Dark Mode */
+body.dark-mode .btn-outline-primary:hover,
+body.dark-mode .btn-outline-primary:focus {
+    background-color: #555555 !important;
+    border-color: #666666 !important;
+    color: #fff !important;
+}
+
+/* Hover/Focus States for Light Mode */
+body:not(.dark-mode) .btn-outline-primary:hover,
+body:not(.dark-mode) .btn-outline-primary:focus {
+    background-color: #0056b3 !important;
+    border-color: #0056b3 !important;
+    color: #fff !important;
+}
+
+/* Base scrollbar style for all browsers */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #2b2b2b; /* thumb color, track color */
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #2b2b2b; /* track */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #888; /* thumb */
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+
+/* Light mode override */
+body:not(.dark-mode) * {
+    scrollbar-color: #ccc #f0f0f0;
+}
+
+body:not(.dark-mode) *::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+body:not(.dark-mode) *::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+}
+
+body:not(.dark-mode) *::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+}
+
+/* Global card styling for dark mode */
+body.dark-mode .card {
+    background-color: #1e1f21 !important;
+    color: #e0e0e0 !important;
+    border-color: #333 !important;
+}
+
+body.dark-mode .card-header {
+    background-color: #2a2b2d !important;
+    border-bottom: 1px solid #444 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .card-body {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+/* Ensure bg-light still shows in dark mode when used intentionally */
+body.dark-mode .bg-light {
+    background-color: #2a2b2d !important;
+    color: #f0f0f0 !important;
+}
+
+/* Optional: match your waveform area and transcript box */
+body.dark-mode #waveform {
+    background-color: #2c2c2e !important;
+}
+
+body.dark-mode .transcript-container {
+    background-color: #1e1f21 !important;
+    color: #d0d0d0 !important;
+    border: 1px solid #333;
+}
+
+/* Fix text-muted color in dark mode */
+body.dark-mode .text-muted {
+    color: #bbbbbb !important; /* Adjust as needed for contrast */
+}
+
+/* Optional: lighter label text on switches */
+body.dark-mode .form-check-label {
+    color: #ccc !important;
 }

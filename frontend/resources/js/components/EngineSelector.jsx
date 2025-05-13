@@ -86,17 +86,17 @@ export default function EngineSelector({
                                 title: "Warning: Gemini Mode",
                                 icon: "warning",
                                 html: `
-                                        <div class="text-start small">
-                                            <p><strong>Gemini (Cloud API)</strong> is ideal for <u>one big file at a time</u>.</p>
-                                            <ul>
-                                                <li>Works great with <strong>large files</strong> like a <strong>12GB / 3-hour video</strong>.</li>
-                                                <li>Much <strong>slower</strong> than Whisper — expect long waits.</li>
-                                                <li>Lacks features like JSON transcript, word timing, or waveform sync.</li>
-                                                <li>Whisper is faster, offline, and more functional.</li>
-                                            </ul>
-                                            <p>If you're not sure — <strong>stick with Whisper</strong>.</p>
-                                        </div>
-                                    `,
+                        <div class="text-start small">
+                            <p><strong>Gemini (Cloud API)</strong> is ideal for <u>one big file at a time</u>.</p>
+                            <ul>
+                                <li>Works great with <strong>large files</strong> like a <strong>12GB / 3-hour video</strong>.</li>
+                                <li>Much <strong>slower</strong> than Whisper — expect long waits.</li>
+                                <li>Lacks features like JSON transcript, word timing, or waveform sync.</li>
+                                <li>Whisper is faster, offline, and more functional.</li>
+                            </ul>
+                            <p>If you're not sure — <strong>stick with Whisper</strong>.</p>
+                        </div>
+                    `,
                                 confirmButtonText: "Use Gemini Anyway",
                                 cancelButtonText: "Cancel",
                                 showCancelButton: true,

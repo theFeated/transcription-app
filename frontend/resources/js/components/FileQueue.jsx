@@ -265,6 +265,10 @@ export default function FileQueue({
                                 key={status}
                                 className={`btn btn-sm btn-outline-${
                                     filter === status ? "primary" : "secondary"
+                                } ${
+                                    filter === status
+                                        ? "selected-status-dark-mode"
+                                        : ""
                                 }`}
                                 onClick={() => setFilter(status)}
                             >
