@@ -16,7 +16,7 @@ export default function FileUpload({ onFilesSelected }) {
         multiple: true,
         accept: {
             "audio/*": [],
-            "video/*": []
+            "video/*": [],
         },
     });
 
@@ -32,7 +32,9 @@ export default function FileUpload({ onFilesSelected }) {
 
             <div
                 {...getRootProps()}
-                className={`dropzone border rounded p-3 text-center ${isDragActive ? "bg-light border-primary" : "bg-white"}`}
+                className={`dropzone border rounded p-3 text-center ${
+                    isDragActive ? "bg-light border-primary" : "bg-white"
+                }`}
                 style={{ cursor: "pointer" }}
                 onClick={triggerFileDialog}
             >
@@ -48,15 +50,21 @@ export default function FileUpload({ onFilesSelected }) {
                 />
 
                 <div className="d-flex flex-column align-items-center gap-2">
-                    <i className="bi bi-upload" style={{ fontSize: "2rem" }}></i>
+                    <i
+                        className="bi bi-upload"
+                        style={{ fontSize: "2rem" }}
+                    ></i>
                     {isDragActive ? (
                         <p className="mb-0">Drop the files here...</p>
                     ) : (
                         <>
                             <p className="mb-0">
-                                Drag & drop audio or video files here, or click to select
+                                Drag & drop audio or video files here, or click
+                                to select
                             </p>
-                            <small className="text-muted">Supports multiple files</small>
+                            <small className="text-muted dark-mode-text">
+                                Supports multiple files
+                            </small>
                         </>
                     )}
                 </div>

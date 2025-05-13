@@ -46,10 +46,14 @@ export default function FileQueue({
 
     const getStatusColor = (status) => {
         switch (status) {
-            case "completed": return "success";
-            case "failed": return "danger";
-            case "processing": return "primary";
-            default: return "secondary";
+            case "completed":
+                return "success";
+            case "failed":
+                return "danger";
+            case "processing":
+                return "primary";
+            default:
+                return "secondary";
         }
     };
 
@@ -89,57 +93,129 @@ export default function FileQueue({
 
     useEffect(() => {
         if (!autoStart) return;
-        const isProcessing = Object.values(jobs || {}).some(job => job?.status === "processing");
+        const isProcessing = Object.values(jobs || {}).some(
+            (job) => job?.status === "processing"
+        );
         const pendingJobs = sortedJobIds
-        .map(id => jobs?.[id])
-        .filter(job => job?.status === "pending");
-            if (pendingJobs.length === 0) return;
+            .map((id) => jobs?.[id])
+            .filter((job) => job?.status === "pending");
+        if (pendingJobs.length === 0) return;
 
         if (safeMode) {
             if (!isProcessing) onJobStart(pendingJobs[0].id);
         } else {
-          const currentWhispers = Object.values(jobs || {}).filter(j => j?.status === "processing" && j?.engine === "whisper").length;
-          const availableSlots = whisperConcurrency - currentWhispers;
+            const currentWhispers = Object.values(jobs || {}).filter(
+                (j) => j?.status === "processing" && j?.engine === "whisper"
+            ).length;
+            const availableSlots = whisperConcurrency - currentWhispers;
             if (availableSlots > 0) {
-              const jobsToStart = pendingJobs.filter(j => j?.engine === "whisper").slice(0, availableSlots);
-              jobsToStart.forEach(j => onJobStart(j.id));
+                const jobsToStart = pendingJobs
+                    .filter((j) => j?.engine === "whisper")
+                    .slice(0, availableSlots);
+                jobsToStart.forEach((j) => onJobStart(j.id));
             }
         }
-    }, [jobs, sortedJobIds, autoStart, safeMode, whisperConcurrency, onJobStart]);
+    }, [
+        jobs,
+        sortedJobIds,
+        autoStart,
+        safeMode,
+        whisperConcurrency,
+        onJobStart,
+    ]);
 
     const DraggableJobCard = ({ jobId }) => {
         const job = jobs[jobId];
-        const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: jobId });
-        const style = { transform: CSS.Transform.toString(transform), transition };
+        const { attributes, listeners, setNodeRef, transform, transition } =
+            useSortable({ id: jobId });
+        const style = {
+            transform: CSS.Transform.toString(transform),
+            transition,
+        };
 
         return (
-            <div ref={setNodeRef} style={style} {...attributes} {...listeners} className={`col-12 file-card ${job.engine}`}>
-                <div className="card mb-2" style={{ cursor: "grab" }} onClick={() => job.status === "completed" && onJobSelect(job)}>
+            <div
+                ref={setNodeRef}
+                style={style}
+                {...attributes}
+                {...listeners}
+                className={`col-12 file-card ${job.engine}`}
+            >
+                <div
+                    className="card mb-2"
+                    style={{ cursor: "grab" }}
+                    onClick={() =>
+                        job.status === "completed" && onJobSelect(job)
+                    }
+                >
                     <div className="card-body p-2">
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="flex-grow-1 me-2">
                                 <div className="d-flex align-items-center mb-1">
-                                    <h6 className="mb-0 text-truncate">{job.name}</h6>
-                                    <span className={`badge engine-badge ${job.engine}-badge ms-2`}>{job.engine}</span>
+                                    <h6 className="mb-0 text-truncate">
+                                        {job.name}
+                                    </h6>
+                                    <span
+                                        className={`badge engine-badge ${job.engine}-badge ms-2`}
+                                    >
+                                        {job.engine}
+                                    </span>
                                 </div>
-                                <small className="text-muted d-block">{formatFileSize(job.file.size)}</small>
+                                <small className="text-muted d-block">
+                                    {formatFileSize(job.file.size)}
+                                </small>
                                 <div className="progress progress-thin mt-1">
-                                    <div className="progress-bar" role="progressbar" style={{ width: `${job.progress * 100}%` }} aria-valuenow={job.progress * 100} aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div
+                                        className="progress-bar"
+                                        role="progressbar"
+                                        style={{
+                                            width: `${job.progress * 100}%`,
+                                        }}
+                                        aria-valuenow={job.progress * 100}
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    ></div>
                                 </div>
                             </div>
                             <div className="d-flex align-items-center gap-2">
-                                <span className={`badge status-badge bg-${getStatusColor(job.status)}`}>{job.status === "processing" ? job.stage : job.status}</span>
+                                <span
+                                    className={`badge status-badge bg-${getStatusColor(
+                                        job.status
+                                    )}`}
+                                >
+                                    {job.status === "processing"
+                                        ? job.stage
+                                        : job.status}
+                                </span>
                                 {job.status === "pending" && !safeMode && (
-                                    <button className="btn btn-sm btn-outline-primary" onClick={(e) => { e.stopPropagation(); onJobStart(job.id); }} title="Start transcription">
+                                    <button
+                                        className="btn btn-sm btn-outline-primary"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            onJobStart(job.id);
+                                        }}
+                                        title="Start transcription"
+                                    >
                                         <i className="bi bi-play-fill"></i>
                                     </button>
                                 )}
                                 {job.status === "failed" && !autoRetry && (
-                                    <button className="btn btn-sm btn-outline-warning" onClick={(e) => { e.stopPropagation(); handleRetryJob(job); }} title="Retry transcription">
+                                    <button
+                                        className="btn btn-sm btn-outline-warning"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleRetryJob(job);
+                                        }}
+                                        title="Retry transcription"
+                                    >
                                         <i className="bi bi-arrow-repeat"></i>
                                     </button>
                                 )}
-                                <button className="btn btn-sm btn-outline-danger" onClick={(e) => confirmDelete(e, job)} title="Remove from queue">
+                                <button
+                                    className="btn btn-sm btn-outline-danger"
+                                    onClick={(e) => confirmDelete(e, job)}
+                                    title="Remove from queue"
+                                >
                                     <i className="bi bi-trash"></i>
                                 </button>
                             </div>
@@ -178,13 +254,22 @@ export default function FileQueue({
                         </h6>
                     </div>
                     <div className="d-flex flex-wrap gap-2 align-items-center">
-                        {["all", "pending", "processing", "completed", "failed"].map((status) => (
+                        {[
+                            "all",
+                            "pending",
+                            "processing",
+                            "completed",
+                            "failed",
+                        ].map((status) => (
                             <button
                                 key={status}
-                                className={`btn btn-sm btn-outline-${filter === status ? "primary" : "secondary"}`}
+                                className={`btn btn-sm btn-outline-${
+                                    filter === status ? "primary" : "secondary"
+                                }`}
                                 onClick={() => setFilter(status)}
                             >
-                                {status.charAt(0).toUpperCase() + status.slice(1)}
+                                {status.charAt(0).toUpperCase() +
+                                    status.slice(1)}
                             </button>
                         ))}
                     </div>
@@ -194,21 +279,37 @@ export default function FileQueue({
                     {/* Concurrency Toggle */}
                     {currentEngine === "whisper" && (
                         <div className="d-flex align-items-center gap-2">
-                            <label className="form-label mb-0 small">Concurrency</label>
+                            <label className="form-label mb-0 small">
+                                Concurrency
+                            </label>
                             <select
                                 className="form-select form-select-sm"
                                 style={{ width: "80px" }}
                                 value={whisperConcurrency}
-                                onChange={(e) => setWhisperConcurrency(parseInt(e.target.value))}
+                                onChange={(e) =>
+                                    setWhisperConcurrency(
+                                        parseInt(e.target.value)
+                                    )
+                                }
                                 disabled={safeMode}
                             >
                                 {[...Array(10).keys()].map((i) => (
-                                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                                    <option key={i + 1} value={i + 1}>
+                                        {i + 1}
+                                    </option>
                                 ))}
                             </select>
                             {!safeMode && (
                                 <span className="badge bg-info text-dark small">
-                                    Processing: {Object.values(jobs).filter(j => j.status === "processing" && j.engine === "whisper").length} / {whisperConcurrency}
+                                    Processing:{" "}
+                                    {
+                                        Object.values(jobs).filter(
+                                            (j) =>
+                                                j.status === "processing" &&
+                                                j.engine === "whisper"
+                                        ).length
+                                    }{" "}
+                                    / {whisperConcurrency}
                                 </span>
                             )}
                         </div>
@@ -223,10 +324,18 @@ export default function FileQueue({
                             id="safeModeToggle"
                             checked={safeMode}
                             disabled={currentEngine === "gemini"}
-                            onChange={() => currentEngine !== "gemini" && setSafeMode(!safeMode)}
+                            onChange={() =>
+                                currentEngine !== "gemini" &&
+                                setSafeMode(!safeMode)
+                            }
                         />
-                        <label className="form-check-label small mb-0" htmlFor="safeModeToggle">
-                            Safe Mode {currentEngine === "gemini" && "(Required for Gemini)"}
+                        <label
+                            className="form-check-label small mb-0"
+                            htmlFor="safeModeToggle"
+                        >
+                            Safe Mode{" "}
+                            {currentEngine === "gemini" &&
+                                "(Required for Gemini)"}
                         </label>
                     </div>
 
@@ -240,7 +349,10 @@ export default function FileQueue({
                             checked={autoStart}
                             onChange={() => setAutoStart(!autoStart)}
                         />
-                        <label className="form-check-label small mb-0" htmlFor="autoStartToggle">
+                        <label
+                            className="form-check-label small mb-0"
+                            htmlFor="autoStartToggle"
+                        >
                             Auto Start
                         </label>
                     </div>
@@ -255,7 +367,10 @@ export default function FileQueue({
                             checked={autoRetry}
                             onChange={() => setAutoRetry(!autoRetry)}
                         />
-                        <label className="form-check-label small mb-0" htmlFor="autoRetryToggle">
+                        <label
+                            className="form-check-label small mb-0"
+                            htmlFor="autoRetryToggle"
+                        >
                             Auto Retry
                         </label>
                     </div>
@@ -264,16 +379,26 @@ export default function FileQueue({
 
             <div className="card-body p-2">
                 {filteredSortedJobIds.length === 0 ? (
-                    <div className="text-muted small text-center py-3">
+                    <div className="text-muted small text-center py-3 dark-mode-text">
                         No jobs in this category.
                     </div>
                 ) : (
-                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+                    <DndContext
+                        sensors={sensors}
+                        collisionDetection={closestCenter}
+                        onDragEnd={onDragEnd}
+                    >
                         <SortableContext
                             items={filteredSortedJobIds}
                             strategy={verticalListSortingStrategy}
                         >
-                            <div className="row g-2" style={{ maxHeight: "300px", overflowY: "auto" }}>
+                            <div
+                                className="row g-2"
+                                style={{
+                                    maxHeight: "300px",
+                                    overflowY: "auto",
+                                }}
+                            >
                                 {filteredSortedJobIds.map((id) => (
                                     <DraggableJobCard key={id} jobId={id} />
                                 ))}

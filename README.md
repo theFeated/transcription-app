@@ -36,3 +36,59 @@ npm run build
 npm run dev
 php artisan serve
 
+transcription_frontend/
+├── app/                  # Laravel backend
+│   ├── Http/
+│   │   └── Controllers/
+│   │       └── Api/
+│   │           ├── TranscriptionController.php
+│   │           └── FileController.php
+│   ├── Models/
+│   │   └── TranscriptionJob.php
+│   └── ...
+├── resources/
+│   ├── js/
+│   │   ├── components/   # React components
+│   │   │   ├── FileUpload.jsx
+│   │   │   ├── AudioPlayer.jsx
+│   │   │   ├── TranscriptViewer.jsx
+│   │   │   ├── FileQueue.jsx
+│   │   │   └── EngineSelector.jsx
+│   │   ├── pages/
+│   │   │   └── TranscriptionStudio.jsx
+│   │   ├── app.js
+│   │   └── bootstrap.js
+│   └── views/
+│       └── app.blade.php
+├── routes/
+│   ├── api.php
+│   └── web.php
+├── package.json
+├── vite.config.js
+└── ...
+
+
+transcription_backend/
+├── app/
+│   ├── api/
+│   │   ├── routes/
+│   │   │   ├── transcribe.py
+│   │   │   ├── analyze.py
+│   │   │   └── status.py
+│   ├── core/
+│   │   ├── config.py
+│   │   └── logging_config.py
+│   ├── services/
+│   │   ├── audio_utils.py
+│   │   ├── whisper_transcriber.py
+│   │   ├── gemini_transcriber.py
+│   │   └── job_manager.py
+│   ├── workers/
+│   │   └── tasks.py
+│   ├── models/
+│   │   └── schemas.py
+│   └── main.py
+├── requirements.txt
+└── README.md
+
+

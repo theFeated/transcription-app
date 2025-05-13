@@ -9,6 +9,7 @@ import TranscriptActions from "@/components/TranscriptActions";
 import FileQueue from "../components/FileQueue";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DarkModeToggle from "../components/DarkModeToggle";
 
 export default function TranscriptionStudio() {
     const {
@@ -346,20 +347,26 @@ export default function TranscriptionStudio() {
                 theme="colored"
             />
             <div className="card shadow-sm">
-                <div className="card-header bg-primary text-white d-flex justify-content-between">
-                    <h1 className="h4 mb-0">
-                        <i className="bi bi-mic-fill me-2"></i>Transcription
-                        Studio
-                    </h1>
-                    <span className="badge bg-light text-dark mt-2">
-                        <i
-                            className={`bi bi-circle-fill text-${
-                                serverStatus ? "success" : "danger"
-                            }`}
-                        ></i>
-                        {serverStatus ? " Server Connected" : " Server Offline"}
-                    </span>
+                <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center">
+                        <h1 className="h5 mb-0 me-3">
+                            <i className="bi bi-mic-fill me-2"></i>Transcription
+                            Studio
+                        </h1>
+                        <span className="badge bg-light text-dark">
+                            <i
+                                className={`bi bi-circle-fill me-1 text-${
+                                    serverStatus ? "success" : "danger"
+                                }`}
+                            ></i>
+                            {serverStatus
+                                ? "Connected"
+                                : "Offline"}
+                        </span>
+                    </div>
+                    <DarkModeToggle />
                 </div>
+
                 <div className="card-body">
                     <div className="row mb-4">
                         <div className="col-md-6">

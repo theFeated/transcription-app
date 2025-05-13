@@ -1,0 +1,53 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+env/
+venv/
+.venv/
+*.env
+*.db
+*.sqlite3
+
+# Pytest
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.tox
+*.nox
+*.hypothesis/
+*.pytest_cache/
+
+# Logs
+*.log
+
+# Flask/Django (if applicable, even though you're using FastAPI)
+instance/
+*.pid
+*.sock
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# Virtual environment folder (just in case)
+venv/
+env/
+
+# MacOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+ehthumbs.db
+
+# Celery / RabbitMQ / Redis
+celerybeat-schedule
+celeryd.pid
+
+# Other environment files
+.env.local
+.env.*.local
+*.env

@@ -140,7 +140,7 @@ export default function EngineSelector({
                 </div>
             )}
 
-            <p className="small text-muted mt-2">
+            <p className="small text-muted mt-2 dark-mode-text">
                 Whisper runs locally (GPU recommended). Gemini uses a cloud API,
                 ideal for slower devices or mobile.{" "}
                 <button

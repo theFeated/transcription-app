@@ -9,3 +9,116 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+:root {
+    --whisper-color: #6f42c1;
+    --gemini-color: #0d6efd;
+}
+
+.file-card {
+    transition: all 0.2s;
+    cursor: pointer;
+    border-left: 4px solid var(--bs-primary);
+}
+
+.file-card.whisper {
+    border-left-color: var(--whisper-color);
+}
+
+.file-card.gemini {
+    border-left-color: var(--gemini-color);
+}
+
+.file-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-thin {
+    height: 6px;
+}
+
+.status-badge {
+    font-size: 0.75rem;
+}
+
+.highlight-word {
+    transition: all 0.2s;
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+.active-word {
+    background-color: #ffecb3;
+    font-weight: 500;
+}
+
+.engine-badge {
+    font-size: 0.7rem;
+    padding: 2px 5px;
+}
+
+.whisper-badge {
+    background-color: var(--whisper-color);
+}
+
+.gemini-badge {
+    background-color: var(--gemini-color);
+}
+
+.transcript-paragraph {
+    margin-bottom: 1em;
+    line-height: 1.6;
+}
+
+.word {
+    display: inline;
+    padding: 0 0.15em;
+    word-spacing: normal;
+}
+
+.word:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+}
+
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .card-header,
+body.dark-mode .form-control,
+body.dark-mode .btn,
+body.dark-mode .badge {
+    background-color: #1e1e1e !important;
+    color: #f1f1f1 !important;
+    border-color: #444 !important;
+}
+
+body.dark-mode .bg-primary {
+    background-color: #333 !important;
+}
+
+body.dark-mode .btn-outline-light {
+    border-color: #ccc !important;
+    color: #ccc !important;
+}
+
+.dark-mode .dropzone {
+    background-color: #333 !important;
+    border-color: #444 !important;
+}
+
+body.dark-mode .dark-mode-text {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .dark-mode-text button {
+    color: #ccc;
+}
+
+body.dark-mode .dark-mode-text .btn-link {
+    color: #ddd !important;
+}
