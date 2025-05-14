@@ -98,8 +98,22 @@ const TranscriptionPlayback = React.memo(function TranscriptionPlayback({
         wavesurferRef.current?.playPause();
     };
 
+    // Seek handler for word clicks
     const handleWordClick = (time) => {
-        wavesurferRef.current?.seekTo(time / duration);
+        wavesurferRef.current?.seekTo(time / duration); // Seek directly to the clicked time
+        if (!isPlaying) {
+            wavesurferRef.current?.play(); // Start playback if not already playing
+        }
+    };
+
+    // Handle seek bar changes
+    const handleSeekBarChange = (e) => {
+        const newTime = parseFloat(e.target.value);
+        setCurrentTime(newTime);
+        wavesurferRef.current?.seekTo(newTime / duration); // Seek to the selected position
+        if (!isPlaying) {
+            wavesurferRef.current?.play(); // Start playback if not already playing
+        }
     };
 
     const handlePlaybackRateChange = (e) => {
@@ -186,7 +200,7 @@ const TranscriptionPlayback = React.memo(function TranscriptionPlayback({
                         max={duration || 1}
                         step="0.01"
                         value={currentTime}
-                        onChange={(e) => handleWordClick(parseFloat(e.target.value))}
+                        onChange={handleSeekBarChange} // Handle seek directly on change
                     />
 
                     <select

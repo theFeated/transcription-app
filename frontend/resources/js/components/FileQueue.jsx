@@ -38,6 +38,16 @@ export default function FileQueue({
         setSortedJobIds(Object.keys(jobs));
     }, [jobs]);
 
+    useEffect(() => {
+        if (!autoRetry) return;
+
+        const failedJobs = sortedJobIds
+            .map((id) => jobs[id])
+            .filter((job) => job?.status === "failed");
+
+        failedJobs.forEach((job) => handleRetryJob(job));
+    }, [jobs, sortedJobIds, autoRetry]);
+
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: { distance: 5 },
@@ -286,23 +296,26 @@ export default function FileQueue({
                             <label className="form-label mb-0 small">
                                 Concurrency
                             </label>
-                            <select
-                                className="form-select form-select-sm"
+                            <input
+                                type="number"
+                                min="1"
+                                max="100"
+                                className="form-control form-control-sm"
                                 style={{ width: "80px" }}
                                 value={whisperConcurrency}
-                                onChange={(e) =>
-                                    setWhisperConcurrency(
-                                        parseInt(e.target.value)
-                                    )
-                                }
+                                onChange={(e) => {
+                                    const value = parseInt(e.target.value);
+                                    if (
+                                        !isNaN(value) &&
+                                        value >= 1 &&
+                                        value <= 100
+                                    ) {
+                                        setWhisperConcurrency(value);
+                                    }
+                                }}
                                 disabled={safeMode}
-                            >
-                                {[...Array(10).keys()].map((i) => (
-                                    <option key={i + 1} value={i + 1}>
-                                        {i + 1}
-                                    </option>
-                                ))}
-                            </select>
+                            />
+
                             {!safeMode && (
                                 <span className="badge bg-info text-dark small">
                                     Processing:{" "}
